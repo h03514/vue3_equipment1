@@ -1,17 +1,25 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+  <!-- <HelloWorld></HelloWorld> -->
+  <Demo></Demo>
+  <Main></Main>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from "./components/HelloWorld.vue";
+import Demo from "./components/demo.vue";
+import Main from "./components/main.vue";
+import "@/assets/scss/bootstrap.min.css";
+import "@/assets/scss/test.scss";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    // HelloWorld,
+    Demo,
+    Main
   }
-}
+};
 </script>
 
 <style>
@@ -21,6 +29,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
+
+

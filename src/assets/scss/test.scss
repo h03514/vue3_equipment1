@@ -1,3 +1,9 @@
 #app {
-    margin: 0;
+    header {
+        .navHover:hover {
+            color: orangered !important;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+    }
 }

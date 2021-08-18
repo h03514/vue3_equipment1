@@ -1,12 +1,6 @@
 <template>
-  <div class="row">
-    <div class="col-sm-3 fw-bolder fs-5 titleName">SN</div>
-    <div class="col-sm-2 fw-bolder fs-5 titleName">姓名</div>
-    <div class="col-sm-3 fw-bolder fs-5 titleName">類別</div>
-    <div class="col-sm-3 fw-bolder fs-5 titleName">型號</div>
-    <div class="col-sm-1 fw-bolder fs-5 titleName"></div>
-  </div>
-  <!-- <div>
+  <h3>childA组件传过来的msg: {{ wer }}</h3>
+  <div v-if="msg=='computer'">
     <div class="row Computer" v-for="(item,key) in equipment.computer" :key="key">
       <div class="col-sm-3">{{ item.qvesn }}</div>
       <div class="col-sm-2">{{ item.title }}</div>
@@ -18,7 +12,7 @@
       </div>
     </div>
   </div>
-  <div v-if="sss=='Monitor'">
+  <div v-if="msg=='monitor'">
     <div class="row Monitor" v-for="(item,key) in equipment.monitor" :key="key">
       <div class="col-sm-3">{{ item.qvesn }}</div>
       <div class="col-sm-2">{{ item.title }}</div>
@@ -29,23 +23,19 @@
         <i class="fas fa-ad"></i>
       </div>
     </div>
-  </div>-->
-  <div>{{title}}</div>
+  </div>
 </template>
 
 <script>
-import mitt from "mitt";
-
-import { reactive, ref } from "vue";
+import emitter from "../assets/js/mitt";
+import { ref, reactive } from "vue";
 
 export default {
-  name: "Main",
-  props: ["msg", "title"],
-  setup(props) {
-    let sss = reactive({ props });
-    const ddds = ref("123");
-    const emitter = mitt();
-    // console.log(sss);
+  name: "testEmit2",
+  setup() {
+    let msg = ref("");
+    let wer = ref("");
+
     let equipment = reactive({
       computer: [
         {
@@ -96,24 +86,15 @@ export default {
     });
 
     emitter.on("send", val => {
-      console.log(val);
+      msg.value = val.value;
     });
-
-    function isShow(e) {
-      if (e == "Computer") {
-        console.log("a");
-        document.querySelector(".Computer");
-      }
-      if (e == "Monitor") {
-        console.log("b");
-        document.querySelector(".Monitor");
-      }
-    }
+    emitter.on("ddd", val => {
+      wer.value = val.value;
+    });
     return {
-      equipment,
-      isShow,
-      sss,
-      ddds
+      msg: msg,
+      wer: wer,
+      equipment
     };
   }
 };

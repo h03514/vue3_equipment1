@@ -1,6 +1,5 @@
 <template>
-  <h3>childA组件传过来的msg: {{ wer }}</h3>
-  <div v-if="msg=='computer'">
+  <div v-if="msg=='Computer'">
     <div class="row Computer" v-for="(item,key) in equipment.computer" :key="key">
       <div class="col-sm-3">{{ item.qvesn }}</div>
       <div class="col-sm-2">{{ item.title }}</div>
@@ -12,13 +11,13 @@
       </div>
     </div>
   </div>
-  <div v-if="msg=='monitor'">
+  <div v-if="msg=='Monitor'">
     <div class="row Monitor" v-for="(item,key) in equipment.monitor" :key="key">
       <div class="col-sm-3">{{ item.qvesn }}</div>
       <div class="col-sm-2">{{ item.title }}</div>
       <div class="col-sm-3">{{ item.type }}</div>
       <div class="col-sm-3">{{ item.model }}</div>
-      <div class="col-sm-1">
+      <div class="col-sm-1" @click="ajaxTest">
         <a href="javascript:;">aaa</a>
         <i class="fas fa-ad"></i>
       </div>
@@ -28,6 +27,7 @@
 
 <script>
 import emitter from "../assets/js/mitt";
+import { axios } from "axios";
 import { ref, reactive } from "vue";
 
 export default {
@@ -85,16 +85,37 @@ export default {
       ]
     });
 
+    emitter.on("hello", val => {
+      msg.value = val.value;
+    });
+
     emitter.on("send", val => {
       msg.value = val.value;
     });
     emitter.on("ddd", val => {
       wer.value = val.value;
     });
+
+    function ajaxTest() {
+      console.log("abc");
+      axios.get("https://randomuser.me/api/").then(res => {
+        console.log(res);
+      });
+
+      // axios({
+      //   method: "get",
+      //   url: "https://randomuser.me/api/"
+      // }).then(function(response) {
+      //   console.log(response);
+      // });
+    }
+    emitter.emit("sss", reactive(ajaxTest));
+
     return {
       msg: msg,
       wer: wer,
-      equipment
+      equipment,
+      ajaxTest
     };
   }
 };

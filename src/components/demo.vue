@@ -30,15 +30,14 @@
   </header>
 </template>
 <script>
-import mitt from "mitt";
+import emitter from "../assets/js/mitt";
+
 import { reactive, ref, watch } from "vue";
 
 export default {
   name: "Demo",
   emits: ["hello"],
-  setup(props, context) {
-    const emitter = mitt();
-
+  setup() {
     // 數據
     let sum = ref(0);
     let msg = ref("你好啊");
@@ -52,9 +51,9 @@ export default {
       }
     });
 
-    const sendChildB = () => {
-      emitter.emit("send", msg);
-    };
+    // const sendChildB = () => {
+    //   emitter.emit("send", msg);
+    // };
 
     // 特殊情況
     watch(
@@ -68,14 +67,13 @@ export default {
     function clickNav(e) {
       // console.log(e.target.innerText);
       // console.log(e);
-      context.emit("hello", e.target.innerText);
+      emitter.emit("hello", ref(e.target.innerText));
     }
     return {
       sum,
       msg,
       person,
-      clickNav,
-      sendChildB
+      clickNav
     };
   }
 };

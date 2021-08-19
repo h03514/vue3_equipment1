@@ -3,15 +3,15 @@
   <!-- <HelloWorld></HelloWorld> -->
   <Demo @hello="showEquipmentData"></Demo>
   <Main :title="btnMsg.name"></Main>
-  <testEmit1></testEmit1>
+  <!-- <testEmit1></testEmit1> -->
   <testEmit2></testEmit2>
 </template>
 
 <script>
 // import HelloWorld from "./components/HelloWorld.vue";
 import Demo from "./components/demo.vue";
-import Main from "./components/main.vue";
-import testEmit1 from "./components/testEmit1.vue";
+// import Main from "./components/main.vue";
+// import testEmit1 from "./components/testEmit1.vue";
 import testEmit2 from "./components/testEmit2.vue";
 import "@fortawesome/vue-fontawesome";
 import "@/assets/scss/bootstrap.min.css";
@@ -23,8 +23,8 @@ export default {
   components: {
     // HelloWorld,
     Demo,
-    Main,
-    testEmit1,
+    // Main,
+    // testEmit1,
     testEmit2
   },
 

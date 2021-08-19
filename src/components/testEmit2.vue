@@ -99,7 +99,7 @@ export default {
     function ajaxTest() {
       console.log("abc");
       axios.get("https://randomuser.me/api/").then(res => {
-        console.log(res);
+          console.log(res);
       });
 
       // axios({

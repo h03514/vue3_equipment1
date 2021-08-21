@@ -95,20 +95,15 @@ export default {
     emitter.on("ddd", val => {
       wer.value = val.value;
     });
-
-    function ajaxTest() {
-      console.log("abc");
-      axios.get("https://randomuser.me/api/").then(res => {
-          console.log(res);
+    async function ajaxTest() {
+      await axios({
+        method: "get",
+        url: "https://randomuser.me/api/"
+      }).then(function(response) {
+        return Object(response);
       });
-
-      // axios({
-      //   method: "get",
-      //   url: "https://randomuser.me/api/"
-      // }).then(function(response) {
-      //   console.log(response);
-      // });
     }
+
     emitter.emit("sss", reactive(ajaxTest));
 
     return {

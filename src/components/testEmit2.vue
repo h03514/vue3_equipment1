@@ -96,6 +96,7 @@ export default {
       wer.value = val.value;
     });
     async function ajaxTest() {
+      console.log
       await axios({
         method: "get",
         url: "https://randomuser.me/api/"
@@ -104,7 +105,7 @@ export default {
       });
     }
 
-    emitter.emit("sss", reactive(ajaxTest));
+    // emitter.emit("sss", reactive (ajaxTest));
 
     return {
       msg: msg,

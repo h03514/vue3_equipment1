@@ -1,6 +1,10 @@
 <template>
-  <div v-if="msg=='Computer'">
-    <div class="row Computer" v-for="(item,key) in equipment.computer" :key="key">
+  <div v-if="msg == 'Computer'">
+    <div
+      class="row Computer"
+      v-for="(item, key) in equipment.computer"
+      :key="key"
+    >
       <div class="col-sm-3">{{ item.qvesn }}</div>
       <div class="col-sm-2">{{ item.title }}</div>
       <div class="col-sm-3">{{ item.type }}</div>
@@ -11,13 +15,17 @@
       </div>
     </div>
   </div>
-  <div v-if="msg=='Monitor'">
-    <div class="row Monitor" v-for="(item,key) in equipment.monitor" :key="key">
+  <div v-if="msg == 'Monitor'">
+    <div
+      class="row Monitor"
+      v-for="(item, key) in equipment.monitor"
+      :key="key"
+    >
       <div class="col-sm-3">{{ item.qvesn }}</div>
       <div class="col-sm-2">{{ item.title }}</div>
       <div class="col-sm-3">{{ item.type }}</div>
       <div class="col-sm-3">{{ item.model }}</div>
-      <div class="col-sm-1" @click="ajaxTest">
+      <div class="col-sm-1" @click="ddusios">
         <a href="javascript:;">aaa</a>
         <i class="fas fa-ad"></i>
       </div>
@@ -27,12 +35,23 @@
 
 <script>
 import emitter from "../assets/js/mitt";
-import { axios } from "axios";
-import { ref, reactive } from "vue";
+import axios from 'axios';
+import { ref, reactive, onMounted } from "vue";
+
 
 export default {
   name: "testEmit2",
+  methods:{
+    async ddusios(){
+      await axios.get('https://randomuser.me/api/')
+           .then((res)=>{
+               console.log(res);
+           })
+    }
+  },
+
   setup() {
+
     let msg = ref("");
     let wer = ref("");
 
@@ -43,22 +62,22 @@ export default {
           qvesn: "216911001",
           title: "supperlier-01",
           type: "computer",
-          model: "520MT"
+          model: "520MT",
         },
         {
           id: 2,
           qvesn: "216911002",
           title: "supperlier-02",
           type: "computer",
-          model: "520MT"
+          model: "520MT",
         },
         {
           id: 3,
           qvesn: "216911003",
           title: "supperlier-03",
           type: "computer",
-          model: "520MT"
-        }
+          model: "520MT",
+        },
       ],
       monitor: [
         {
@@ -66,53 +85,70 @@ export default {
           qvesn: "216911004",
           title: "supperlier-04",
           type: "Monitor",
-          model: "ViewSonic"
+          model: "ViewSonic",
         },
         {
           id: 2,
           qvesn: "216911005",
           title: "supperlier-05",
           type: "Monitor",
-          model: "Benq"
+          model: "Benq",
         },
         {
           id: 3,
           qvesn: "216911006",
           title: "supperlier-06",
           type: "Monitor",
-          model: "AOC"
-        }
-      ]
+          model: "AOC",
+        },
+      ],
     });
 
-    emitter.on("hello", val => {
+    emitter.on("hello", (val) => {
       msg.value = val.value;
     });
 
-    emitter.on("send", val => {
+    emitter.on("send", (val) => {
       msg.value = val.value;
     });
-    emitter.on("ddd", val => {
+    emitter.on("ddd", (val) => {
       wer.value = val.value;
     });
-    async function ajaxTest() {
-      console.log
-      await axios({
-        method: "get",
-        url: "https://randomuser.me/api/"
-      }).then(function(response) {
-        return Object(response);
-      });
-    }
 
-    // emitter.emit("sss", reactive (ajaxTest));
+    const state = reactive({
+      hits: [],
+    });
+
+
+
+
+    // function ddusios() {
+      
+    //   VueAxios({
+    //     method: "get",
+    //     url: "https://randomuser.me/api/"
+    //   }).then(function(response) {
+    //     return Object(response);
+    //   });
+    //   // const data = fetch("https://hn.algolia.com/api/v1/search?query=vue").then(
+    //   //   (rsp) => {
+    //   //     rsp.json();
+    //   //     console.log(rsp);
+    //   //   }
+    //   // );
+    //   // state.hits = data.hits;
+    // }
+
+    onMounted(async () => {});
+
+    // emitter.emit("sss", reactive (ddusios));
 
     return {
       msg: msg,
       wer: wer,
       equipment,
-      ajaxTest
+      state,
     };
-  }
+  },
 };
 </script>

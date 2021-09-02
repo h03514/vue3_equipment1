@@ -13,11 +13,11 @@
   </div>
   <div v-if="msg == 'Monitor'">
     <div class="row Monitor" v-for="(item, key) in equipment.monitor" :key="key">
-      <div class="col-sm-3">{{ item.qvesn }}</div>
+      <div class="col-sm-3 qvesn">{{ item.qvesn }}</div>
       <div class="col-sm-2">{{ item.title }}</div>
       <div class="col-sm-3">{{ item.type }}</div>
       <div class="col-sm-3">{{ item.model }}</div>
-      <div class="col-sm-1" @click="ddusios">
+      <div class="col-sm-1" @click="getInfo">
         <a href="javascript:;">aaa</a>
         <i class="fas fa-ad"></i>
       </div>
@@ -47,7 +47,9 @@ export default {
     };
   },
   methods: {
-    async ddusios() {
+    async getInfo(e) {
+      
+      console.log(e.target.parentNode.parentNode.querySelector('.qvesn').innerText);
       await axios.get("https://randomuser.me/api/?results=5").then(res => {
         this.testOBj = res.data.results;
         this.abc = true;
